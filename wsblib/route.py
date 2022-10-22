@@ -6,3 +6,6 @@ class Route:
         self._path = path
         self._methods = methods
         self._callback = callback
+
+    def match_route(self, path: str) -> bool:
+        return self._path == path
