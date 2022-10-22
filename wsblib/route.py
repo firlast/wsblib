@@ -9,3 +9,6 @@ class Route:
 
     def match_route(self, path: str) -> bool:
         return self._path == path
+
+    def match_method(self, method: str) -> bool:
+        return method in self._methods
