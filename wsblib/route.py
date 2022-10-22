@@ -1,5 +1,6 @@
 from typing import Any
 from types import FunctionType
+from http_pyparser import response
 
 from .exceptions import InvalidRouteResponseError
 
@@ -16,13 +17,23 @@ class Route:
     def accept_method(self, method: str) -> bool:
         return method in self._methods
 
-    def get_route_response(self, request: Any) -> Any:
+    def get_route_response(self, request: Any) -> response.Response:
         try:
-            response = self._callback.__call__(request)
+            callback_response = self._callback.__call__(request)
         except TypeError:
-            response = self._callback.__call__()
+            callback_response = self._callback.__call__()
 
-        if not response:
+        if not callback_response:
             raise InvalidRouteResponseError(f'Route "{self._path}" returned a invalid response')
         else:
-            return response
+            if isinstance(callback_response, tuple):
+                # getting body and status of response
+                # in use cases of: return "Hello", 200.
+                body, status = callback_response
+                final_response = response.Response(body, status=status)
+            elif isinstance(callback_response, response.Response):
+                final_response = callback_response
+            else:
+                final_response = response.Response(callback_response)
+
+            return final_response
