@@ -1,4 +1,6 @@
-from typing import Callable
+from typing import Any, Callable
+
+from .exceptions import InvalidRouteResponseError
 
 
 class Route:
@@ -12,3 +14,14 @@ class Route:
 
     def match_method(self, method: str) -> bool:
         return method in self._methods
+
+    def get_route_response(self, request: Any) -> Any:
+        try:
+            response = self._callback.__call__(request)
+        except TypeError:
+            response = self._callback.__call__()
+
+        if not response:
+            raise InvalidRouteResponseError(f'Route "{self._path}" returned a invalid response')
+        else:
+            return response
