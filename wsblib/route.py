@@ -1,6 +1,5 @@
-from typing import Any
 from types import FunctionType
-from http_pyparser import response
+from http_pyparser import response, parser
 
 from .exceptions import InvalidRouteResponseError
 
@@ -17,7 +16,7 @@ class Route:
     def accept_method(self, method: str) -> bool:
         return method in self._methods
 
-    def get_route_response(self, request: Any) -> response.Response:
+    def get_route_response(self, request: parser.HTTPData) -> response.Response:
         try:
             callback_response = self._callback.__call__(request)
         except TypeError:
