@@ -1,5 +1,6 @@
 # enviroment
 venv/
+.idea/
 
 # python
 __pycache__/
