@@ -7,6 +7,15 @@ class Client:
         self._client = client
         self._address = address
 
+    def get_address(self) -> tuple:
+        """Get client address in a tuple (host and port).
+
+        :return: Client address.
+        :rtype: tuple
+        """
+
+        return self._address
+
 
 class Server(object):
     def __init__(self):
