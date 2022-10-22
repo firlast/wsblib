@@ -2,6 +2,12 @@ import socket
 from typing import Tuple
 
 
+class Client:
+    def __init__(self, client: socket.socket, address: socket._RetAddress) -> None:
+        self._client = client
+        self._address = address
+
+
 class Server(object):
     def __init__(self):
         self._socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
