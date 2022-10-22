@@ -48,6 +48,8 @@ class Server(object):
         self._socket.bind(address)
         self._socket.listen(128)
 
-    def wait_client(self) -> Tuple[socket.socket, tuple]:
-        client = self._socket.accept()
+    def wait_client(self) -> Client:
+        csocket, address = self._socket.accept()
+        client = Client(csocket, address)
+
         return client
