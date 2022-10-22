@@ -32,6 +32,10 @@ class Client:
         self._client.settimeout(None)
         return message.decode()
 
+    def destroy(self) -> None:
+        self._client.shutdown()
+        self._client.close()
+
 
 class Server(object):
     def __init__(self):
