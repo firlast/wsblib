@@ -24,7 +24,11 @@ class ProcessRequest:
             for route in self._routes:
                 if route.match_route(request.route):
                     if route.accept_method(request.method):
-                        pass
+                        response = route.get_route_response(request)
+                        http_response = http_pyparser.response.make_response(response)
+
+                        client.send_message(http_response)
+                        client.destroy()
                     else:
                         response = http_pyparser.response.Response(
                             body='Method Not Allowed',
