@@ -7,11 +7,11 @@ class Client:
         self._client = client
         self._address = address
 
-    def get_address(self) -> tuple:
+    def get_address(self) -> socket._RetAddress:
         """Get client address in a tuple (host and port).
 
         :return: Client address.
-        :rtype: tuple
+        :rtype: socket._RetAddress
         """
 
         return self._address
