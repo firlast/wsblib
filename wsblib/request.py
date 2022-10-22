@@ -9,3 +9,28 @@ from .server import Client
 class ProcessRequest:
     def __init__(self, routes: List[Route]) -> None:
         self._routes = routes
+
+    def process_request(self, client: Client) -> None:
+        # get client request
+        message = client.get_message()
+
+        if not message:
+            client.destroy()
+        else:
+            http_parser = http_pyparser.parser.HTTPParser()
+            request = http_parser.parser()
+
+            # checking routes
+            for route in self._routes:
+                if route.match_route(request.route):
+                    if route.accept_method(request.method):
+                        pass
+                    else:
+                        response = http_pyparser.response.Response(
+                            body='Method Not Allowed',
+                            status=status.method_not_allowed_405
+                        )
+
+                        http_response = http_pyparser.response.make_response(response)
+                        client.send_message(http_response)
+                        client.destroy()
