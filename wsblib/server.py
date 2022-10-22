@@ -3,15 +3,15 @@ from typing import Tuple, Union
 
 
 class Client:
-    def __init__(self, client: socket.socket, address: socket._RetAddress) -> None:
+    def __init__(self, client: socket.socket, address: tuple) -> None:
         self._client = client
         self._address = address
 
-    def get_address(self) -> socket._RetAddress:
+    def get_address(self) -> tuple:
         """Get client address in a tuple (host and port).
 
         :return: Client address.
-        :rtype: socket._RetAddress
+        :rtype: tuple
         """
 
         return self._address
@@ -48,6 +48,6 @@ class Server(object):
         self._socket.bind(address)
         self._socket.listen(128)
 
-    def wait_client(self) -> Tuple[socket.socket, socket._RetAddress]:
+    def wait_client(self) -> Tuple[socket.socket, tuple]:
         client = self._socket.accept()
         return client
