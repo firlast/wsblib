@@ -7,6 +7,9 @@ class Client:
         self._client = client
         self._address = address
 
+    def send_message(self, message: str) -> None:
+        self._client.send(message.encode())
+
     def get_address(self) -> tuple:
         """Get client address in a tuple (host and port).
 
