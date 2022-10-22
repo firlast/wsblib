@@ -23,8 +23,12 @@ class TestSocket(bupytest.UnitTest):
 
         client = self.server.wait_client()
         message = client.get_message()
-
         self.assert_expected(message, 'wsblib test')
+
+        client.send_message('tested')
+        response = self.client.recv(1024)
+
+        self.assert_expected(response.decode(), 'tested')
 
 
 if __name__ == '__main__':
