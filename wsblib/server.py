@@ -1,4 +1,5 @@
 import socket
+from typing import Tuple
 
 
 class Server(object):
@@ -11,3 +12,7 @@ class Server(object):
 
         self._socket.bind(address)
         self._socket.listen(128)
+
+    def wait_client(self) -> Tuple[socket.socket, socket._RetAddress]:
+        client = self._socket.accept()
+        return client
