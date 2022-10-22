@@ -1,5 +1,5 @@
 import socket
-from typing import Tuple
+from typing import Tuple, Union
 
 
 class Client:
@@ -15,6 +15,22 @@ class Client:
         """
 
         return self._address
+
+    def get_message(self) -> Union[None, str]:
+        """Get the message sent by the client socket.
+
+        :return: Client message.
+        :rtype: Union[None, str]
+        """
+
+        try:
+            self._client.settimeout(1.5)
+            message = self._client.recv(2048)
+        except socket.timeout:
+            return None
+
+        self._client.settimeout(None)
+        return message.decode()
 
 
 class Server(object):
