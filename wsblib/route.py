@@ -1,10 +1,11 @@
-from typing import Any, Callable
+from typing import Any
+from types import FunctionType
 
 from .exceptions import InvalidRouteResponseError
 
 
 class Route:
-    def __init__(self, callback: Callable, path: str, methods: list = ['GET']) -> None:
+    def __init__(self, callback: FunctionType, path: str, methods: tuple = ('GET',)) -> None:
         self._path = path
         self._methods = methods
         self._callback = callback
