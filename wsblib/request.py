@@ -18,7 +18,7 @@ class ProcessRequest:
             client.destroy()
         else:
             http_parser = http_pyparser.parser.HTTPParser()
-            request = http_parser.parser()
+            request = http_parser.parser(message)
 
             # checking routes
             for route in self._routes:
