@@ -2,6 +2,7 @@ import sys
 
 import bupytest
 from http_pyparser.response import Response
+from http_pyparser.parser import HTTPData
 
 sys.path.insert(0, './')
 
@@ -33,8 +34,10 @@ class TestRoute(bupytest.UnitTest):
         self.assert_true(about_route.accept_method('GET'))
         self.assert_false(about_route.accept_method('POST'))
 
+        fake_http_data = HTTPData()
+
         # get /index route response
-        index_response = index_route.get_route_response(None)
+        index_response = index_route.get_route_response(fake_http_data)
 
         self.assert_true(isinstance(index_response, Response))
         self.assert_expected(index_response.body, 'Hello World!')
@@ -42,7 +45,7 @@ class TestRoute(bupytest.UnitTest):
         self.assert_expected(index_response.status, 200)
 
         # get /about route response
-        about_response = about_route.get_route_response(None)
+        about_response = about_route.get_route_response(fake_http_data)
 
         self.assert_true(isinstance(about_response, Response))
         self.assert_expected(about_response.body, {'status': 'created', 'id': 28})
