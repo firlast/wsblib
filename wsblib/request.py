@@ -20,21 +20,29 @@ class ProcessRequest:
             http_parser = http_pyparser.parser.HTTPParser()
             request = http_parser.parser(message)
 
+            match_route: Route = None
+
             # checking routes
             for route in self._routes:
                 if route.match_route(request.path):
-                    if route.accept_method(request.method):
-                        response = route.get_route_response(request)
-                        http_response = http_pyparser.response.make_response(response)
+                    match_route = route
+                    break
 
-                        client.send_message(http_response)
-                        client.destroy()
-                    else:
-                        response = http_pyparser.response.Response(
-                            body='Method Not Allowed',
-                            status=status.method_not_allowed_405
-                        )
+            # make route response
+            if match_route:
+                if route.accept_method(request.method):
+                    response = route.get_route_response(request)
+                else:
+                    response = http_pyparser.response.Response(
+                        body='Method Not Allowed',
+                        status=status.method_not_allowed_405
+                    )
+            else:
+                response = http_pyparser.response.Response(
+                    body='Not Found',
+                    status=status.not_found_404
+                )
 
-                        http_response = http_pyparser.response.make_response(response)
-                        client.send_message(http_response)
-                        client.destroy()
+            http_response = http_pyparser.response.make_response(response)
+            client.send_message(http_response)
+            client.destroy()
