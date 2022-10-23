@@ -4,6 +4,7 @@ venv/
 
 # python
 __pycache__/
+test.py
 
 # build
 build/
