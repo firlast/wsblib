@@ -1,11 +1,11 @@
 import sys
 
 import bupytest
+from http_pyparser.response import Response
 
 sys.path.insert(0, './')
 
 from wsblib import route
-from http_pyparser.response import Response
 
 
 class TestRoute(bupytest.UnitTest):
