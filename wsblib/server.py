@@ -36,7 +36,7 @@ class Client:
         return message.decode()
 
     def destroy(self) -> None:
-        self._client.shutdown()
+        self._client.shutdown(socket.SHUT_RDWR)
         self._client.close()
 
 
