@@ -10,7 +10,7 @@ class ProcessRequest:
     def __init__(self, routes: List[Route]) -> None:
         self._routes = routes
 
-    def process_request(self, client: Client) -> None:
+    def process_request(self, client: Client) -> http_pyparser.Response:
         # get client request
         message = client.get_message()
 
@@ -43,6 +43,4 @@ class ProcessRequest:
                     status=status.not_found_404
                 )
 
-            http_response = http_pyparser.response.make_response(response)
-            client.send_message(http_response)
-            client.destroy()
+        return response
