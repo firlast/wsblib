@@ -27,8 +27,8 @@ class Client:
         """
 
         try:
-            self._client.settimeout(1.5)
-            message = self._client.recv(2048)
+            self._client.settimeout(1)
+            message = self._client.recv(1024)
         except socket.timeout:
             return None
 
