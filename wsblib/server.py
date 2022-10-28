@@ -1,5 +1,5 @@
 import socket
-from typing import Tuple, Union
+from typing import Union
 
 
 class Client:
