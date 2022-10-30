@@ -65,19 +65,26 @@ class Server(object):
         self._socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         self._socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
 
-    def start(self, host: str, port: int) -> None:
+    def start(self, host: str, port: int, max_listen: int = 128) -> None:
         """Start socket in specified address.
 
-        :param host: _description_
+        The `max_listen` argument is the maximum
+        number of connections the socket supports,
+        the default is 128.
+
+        :param host: Host
         :type host: str
-        :param port: _description_
+        :param port: Port
         :type port: int
+        :param max_listen: maximum number of
+        connections the socket, defaults to 128
+        :type max_listen: int, optional
         """
 
         address = (host, port)
 
         self._socket.bind(address)
-        self._socket.listen(128)
+        self._socket.listen(max_listen)
 
     def wait_client(self) -> Client:
         """Wait a client connection.
