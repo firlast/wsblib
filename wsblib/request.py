@@ -10,7 +10,7 @@ class ProcessRequest:
     def __init__(self, routes: List[Route]) -> None:
         self._routes = routes
 
-    def process_request(self, client: Client) -> Union[http_pyparser.Response, bool]:
+    def process(self, client: Client) -> Union[http_pyparser.Response, bool]:
         # get client request
         message = client.get_message()
 
