@@ -1,3 +1,9 @@
+"""
+The `HTTPStatus` class stores HTTP status codes from your message.
+Use the instance of this class to get the status codes.
+"""
+
+
 class HTTPStatus:
     continue_100 = 100
     switching_protocol_101 = 101

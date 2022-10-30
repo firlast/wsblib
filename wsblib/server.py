@@ -1,3 +1,9 @@
+"""
+The `Server` class creates and manipulates the `socket`
+of the server. The `Client` class, on the other hand, is
+used to store and manipulate information from the client socket.
+"""
+
 import socket
 from typing import Union
 

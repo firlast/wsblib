@@ -1,3 +1,8 @@
+"""
+Contains a `ProcessRequest` class to process and get a response
+from a given route and requested method. Use to process client requests.
+"""
+
 import http_pyparser
 from typing import List, Union
 

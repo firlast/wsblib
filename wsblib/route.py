@@ -1,3 +1,8 @@
+"""
+Contains a `Route` class that stores and manipulates information
+of a created route, such as path, accepted methods and the callback function.
+"""
+
 from types import FunctionType
 from http_pyparser import response, parser
 
