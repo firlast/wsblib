@@ -3,6 +3,7 @@ class HTTPStatus:
     switching_protocol_101 = 101
     processing_102 = 102
     early_hints_103 = 103
+
     ok_200 = 200
     created_201 = 201
     accepted_202 = 202
@@ -12,6 +13,7 @@ class HTTPStatus:
     partial_content_206 = 206
     multi_status_207 = 207
     im_used_226 = 226
+
     multiple_choice_300 = 300
     moved_permanently_301 = 301
     found_302 = 302
@@ -19,6 +21,7 @@ class HTTPStatus:
     not_modified_304 = 304
     temporary_redirect_307 = 307
     permanent_redirect_308 = 308
+
     bad_request_400 = 400
     unauthorized_401 = 401
     payment_required_402 = 402
@@ -48,6 +51,7 @@ class HTTPStatus:
     too_many_requests_429 = 429
     request_header_fields_too_large_431 = 431
     unavailable_for_legal_reasons_451 = 451
+
     internal_server_error_500 = 500
     not_implemented_501 = 501
     bad_gateway_502 = 502
