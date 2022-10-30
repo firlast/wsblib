@@ -56,16 +56,36 @@ class Client:
 
 class Server(object):
     def __init__(self):
+        """Create a socket in TCP protocol.
+
+        The socket is configured to reuse the address
+        that is passed in the `self.start` method
+        """
+
         self._socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         self._socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
 
     def start(self, host: str, port: int) -> None:
+        """Start socket in specified address.
+
+        :param host: _description_
+        :type host: str
+        :param port: _description_
+        :type port: int
+        """
+
         address = (host, port)
 
         self._socket.bind(address)
         self._socket.listen(128)
 
     def wait_client(self) -> Client:
+        """Wait a client connection.
+
+        :return: client informations
+        :rtype: Client
+        """
+
         csocket, address = self._socket.accept()
         client = Client(csocket, address)
 
