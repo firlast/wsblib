@@ -16,12 +16,45 @@ class Route:
         self._callback = callback
 
     def match_route(self, path: str) -> bool:
+        """Checks if the path specified by the "path"
+        argument is the same as the path of the registered route.
+
+        :param path: Path to check
+        :type path: str
+        :return: Comparison result
+        :rtype: bool
+        """
+
         return self._path == path
 
     def accept_method(self, method: str) -> bool:
+        """Checks if the method passed by the
+        argument is accepted by the route.
+
+        :param method: HTTP method
+        :type method: str
+        :return: Check result
+        :rtype: bool
+        """
+
         return method in self._methods
 
     def get_route_response(self, request: parser.HTTPData) -> response.Response:
+        """Gets the return of the route's callback
+        function to use as the route's response.
+
+        The `request` argument is only passed as
+        an argument to the callback function, if it
+        requests, so that it can get data from the request.
+
+        :param request: Request data
+        :type request: parser.HTTPData
+        :raises InvalidRouteResponseError: If the route returns None,
+        or a boolean value.
+        :return: Route response in Response object;
+        :rtype: response.Response
+        """
+
         try:
             callback_response = self._callback.__call__(request)
         except TypeError:
