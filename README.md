@@ -9,4 +9,4 @@ Copyright (c) 2022, Jaedson Silva
 All rights reserved.
 ```
 
-This project use the `BSD 3-Clause` license. Please [see LICENSE.md file](https://github.com/firlast/wsblib/blob/master/LICENSE) to **more information** about license.
+This project use the `BSD 3-Clause` license. Please [see LICENSE file](https://github.com/firlast/wsblib/blob/master/LICENSE) to **more information** about license.
