@@ -16,6 +16,19 @@ class ProcessRequest:
         self._routes = routes
 
     def process(self, client: Client) -> Union[http_pyparser.Response, bool]:
+        """Process and get or create a response to
+        specified path and requested method.
+
+        The HTTP message is obtained by `Client`
+        class; the `http_pyparser` library parse this
+        and return a class with HTTP data.
+
+        :param client: A `Client` instance
+        :type client: Client
+        :return: Return request response
+        :rtype: Union[http_pyparser.Response, bool]
+        """
+
         # get client request
         message = client.get_message()
 
