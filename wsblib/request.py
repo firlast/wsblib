@@ -1,5 +1,5 @@
 import http_pyparser
-from typing import List
+from typing import List, Union
 
 from .route import Route
 from .status import status
@@ -10,7 +10,7 @@ class ProcessRequest:
     def __init__(self, routes: List[Route]) -> None:
         self._routes = routes
 
-    def process_request(self, client: Client) -> http_pyparser.Response:
+    def process_request(self, client: Client) -> Union[http_pyparser.Response, bool]:
         # get client request
         message = client.get_message()
 
