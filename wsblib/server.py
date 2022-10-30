@@ -14,6 +14,12 @@ class Client:
         self._address = address
 
     def send_message(self, message: str) -> None:
+        """Send message to client.
+
+        :param message: Message to send
+        :type message: str
+        """
+
         self._client.send(message.encode())
 
     def get_address(self) -> tuple:
@@ -42,6 +48,8 @@ class Client:
         return message.decode()
 
     def destroy(self) -> None:
+        """Destroy client connection."""
+
         self._client.shutdown(socket.SHUT_RDWR)
         self._client.close()
 
