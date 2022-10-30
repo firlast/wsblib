@@ -16,6 +16,7 @@ class ProcessRequest:
 
         if not message:
             client.destroy()
+            response = False
         else:
             http_parser = http_pyparser.parser.HTTPParser()
             request = http_parser.parser(message)
@@ -43,4 +44,4 @@ class ProcessRequest:
                     status=status.not_found_404
                 )
 
-            return response
+        return response
