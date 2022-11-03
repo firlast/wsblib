@@ -5,6 +5,7 @@ Web Server Base Library (WSBLib), a library that serves as a basis for creating 
 ## License
 
 ```text
+BSD 3-Clause
 Copyright (c) 2022, Jaedson Silva
 All rights reserved.
 ```
