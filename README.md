@@ -1,5 +1,8 @@
 # WSBLib
 
+![BADGE](https://img.shields.io/static/v1?label=status&message=development&color=orange)
+![BADGE](https://img.shields.io/static/v1?label=license&message=BSD%203-Clause&color=blue)
+
 Web Server Base Library (WSBLib), a library that serves as a basis for creating other web server frameworks in Python. The goal is to be simple, fast and secure.
 
 To create server frameworks, you need to use this library and the [HTTPPyParser](https://github.com/jaedsonpys/http-pyparser) library to get data from the request, as it is your framework that will manage the entire request cycle, the `WSBLib` library just makes it easier for you.
