@@ -15,5 +15,15 @@ setup(
     packages=['wsblib'],
     install_requires=['http_pyparser==0.4.1'],
     url='https://github.com/firlast/wsblib',
-    keywords=['www', 'http', 'server', 'internet', 'socket']
+    keywords=['www', 'http', 'server', 'internet', 'socket'],
+    classifiers=[
+        'License :: OSI Approved :: BSD License',
+        'Development Status :: 5 - Production/Stable',
+        'Intended Audience :: Developers',
+        'Natural Language :: English',
+        'Operating System :: OS Independent',
+        'Programming Language :: Python :: 3',
+        'Topic :: Internet :: WWW/HTTP :: HTTP Servers',
+        'Topic :: Internet :: WWW/HTTP :: WSGI'
+    ]
 )
