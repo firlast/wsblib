@@ -25,5 +25,8 @@ setup(
         'Programming Language :: Python :: 3',
         'Topic :: Internet :: WWW/HTTP :: HTTP Servers',
         'Topic :: Internet :: WWW/HTTP :: WSGI'
-    ]
+    ],
+    project_urls={
+        'License': 'https://github.com/firlast/wsblib/blob/master/LICENSE'
+    }
 )
