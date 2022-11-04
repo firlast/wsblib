@@ -20,3 +20,14 @@ def about():
 index_route = Route(index, '/')
 about_route = Route(about, '/about')
 routes = (index_route, about_route)
+
+request = ProcessRequest(routes)
+
+
+def process(client: Client):
+    response = request.process(client)
+
+    if response:
+        http = http_pyparser.response.make_response(response)
+        client.send_message(http)
+        client.destroy()
