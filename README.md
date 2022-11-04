@@ -7,6 +7,8 @@ Web Server Base Library (WSBLib), a library that serves as a basis for creating 
 
 To create server frameworks, you need to use this library and the [HTTPPyParser](https://github.com/jaedsonpys/http-pyparser) library to get data from the request, as it is your framework that will manage the entire request cycle, the `WSBLib` library just makes it easier for you.
 
+> The project is still under development, only version 1.0 will be considered stable for use.
+
 ## Installation
 
 You can use the PIP package manager to install `WSBLib`...
