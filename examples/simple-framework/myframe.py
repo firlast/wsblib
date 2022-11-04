@@ -22,3 +22,25 @@ class MyFrame:
             return wrapper()
 
         return decorator
+
+    def run(self, host: str = '127.0.0.1', port: int = 5500) -> None:
+        request = ProcessRequest(self._routes)
+
+        def process(client: Client):
+            response = request.process(client)
+
+            if response:
+                http = http_pyparser.response.make_response(response)
+                client.send_message(http)
+                client.destroy()
+
+
+        server = Server()
+        server.start(host, port)
+
+        print(f'Server running in http://{host}:{port}')
+
+        while True:
+            client = server.wait_client()
+            th = threading.Thread(target=process, args=(client,))
+            th.start()
