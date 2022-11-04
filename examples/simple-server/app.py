@@ -31,3 +31,12 @@ def process(client: Client):
         http = http_pyparser.response.make_response(response)
         client.send_message(http)
         client.destroy()
+
+
+server = Server()
+server.start('127.0.0.1', 2808)
+print('Server running in http://127.0.0.1:2808')
+
+while True:
+    client = server.wait_client()
+    threading.Thread(target=process, args=(client,)).start()
