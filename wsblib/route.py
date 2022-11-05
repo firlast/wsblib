@@ -87,6 +87,20 @@ class Route:
         return result
 
     def get_parameters(self, requested_path: str) -> Union[dict, bool]:
+        """Gets the route path parameters.
+
+        If the route is dynamic, this method will get
+        the parameters and return them in a dictionary,
+        if the route does not match the original route,
+        `False` is returned.
+
+        :param requested_path: Path requested by client;
+        :type requested_path: str
+        :return: Return the parameters or False if route does
+        not match the original route.
+        :rtype: Union[dict, bool]
+        """
+
         path_split = requested_path.split('/')
 
         while '' in path_split:
