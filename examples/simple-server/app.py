@@ -3,6 +3,7 @@
 from wsblib.route import Route
 from wsblib.server import Client, Server
 from wsblib.request import ProcessRequest
+from wsblib.request import RequestData
 
 import http_pyparser
 
@@ -17,9 +18,15 @@ def about():
     return 'About route'
 
 
+def echo(request: RequestData):
+    message = request.parameters.get('message')
+    return 'You say: ' + message
+
+
 index_route = Route(index, '/')
 about_route = Route(about, '/about')
-routes = (index_route, about_route)
+echo_route = Route(echo, '/echo/<message>')
+routes = (index_route, about_route, echo_route)
 
 request = ProcessRequest(routes)
 
