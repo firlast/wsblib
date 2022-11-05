@@ -11,6 +11,38 @@ from .status import status
 from .server import Client
 
 
+class RequestData:
+    def __init__(
+        self,
+        parsed_http: http_pyparser.parser.HTTPData,
+        remote_addr: tuple,
+        parameters: dict
+    ):
+        self.real_path = parsed_http.real_path
+
+        self.path = parsed_http.path
+        self.method = parsed_http.method
+        self.version = parsed_http.version
+        
+        self.host = parsed_http.host
+        self.user_agent = parsed_http.user_agent
+        self.accept = parsed_http.accept
+
+        self.body = parsed_http.body
+        self.headers = parsed_http.headers
+        self.cookies = parsed_http.cookies
+        self.query = parsed_http.query
+
+        self.remote_addr = remote_addr
+        self.parameters = parameters
+
+    def __repr__(self) -> str:
+        return (f'RequestData(real_path="{self.real_path}", path="{self.path}", method="{self.method}", '
+                f'version="{self.version}", host="{self.host}", user_agent="{self.user_agent}", '
+                f'accept="{self.accept}", body={self.body}, headers={self.headers}, cookies={self.cookies}, '
+                f'query={self.query}, remote_addr={self.remote_addr}, parameters={self.parameters})')
+
+
 class ProcessRequest:
     def __init__(self, routes: List[Route]) -> None:
         self._routes = routes
