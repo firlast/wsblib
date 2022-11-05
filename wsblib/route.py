@@ -72,6 +72,24 @@ class Route:
 
         return result
 
+    def get_parameters(self, requested_path: str) -> Union[dict, bool]:
+        path_split = requested_path.split('/')
+
+        while '' in path_split:
+            path_split.remove('')
+
+        if self._path == requested_path:
+            return {}
+        elif len(path_split) == (len(self._parameters) + len(self._no_parameters)):
+            # checking if routes that are not parameters are available
+            for a in self._no_parameters:
+                if path_split[a['index']] == a['name']:
+                    return self._get_route_parameters(path_split)
+                else:
+                    break
+
+        return False
+
     def match_route(self, path: str) -> bool:
         """Checks if the path specified by the "path"
         argument is the same as the path of the registered route.
