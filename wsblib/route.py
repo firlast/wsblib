@@ -15,6 +15,35 @@ class Route:
         self._methods = methods
         self._callback = callback
 
+    def _register_dynamic_route(self) -> None:
+        split_path = self._path.split('/')        
+        split_path.remove('')
+
+        parameters = []
+        no_parameters = []
+
+        for index, i in enumerate(split_path):
+            if i.startswith('<') and i.endswith('>'):
+                i = i.replace('<', '')
+                i = i.replace('>', '')
+                i = i.replace(' ', '')
+
+                parameter = i.split(':')
+
+                if len(parameter) == 2:
+                    var_type, name = parameter
+                else:
+                    var_type = 'any'
+                    name = i
+
+                parameters.append({'index': index, 'var_type': var_type, 'name': name})
+            else:
+                no_parameters.append({'index': index, 'name': i})
+
+        # register registering dynamic route variables
+        self._parameters = parameters
+        self._no_parameters = no_parameters
+
     def match_route(self, path: str) -> bool:
         """Checks if the path specified by the "path"
         argument is the same as the path of the registered route.
