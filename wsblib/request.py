@@ -69,18 +69,23 @@ class ProcessRequest:
             response = False
         else:
             http_parser = http_pyparser.parser.HTTPParser()
-            request = http_parser.parser(message)
+            parsed_http = http_parser.parser(message)
 
             match_route: Route = None
 
             # checking routes
             for route in self._routes:
-                if route.match_route(request.path):
+                parameters = route.get_parameters(parsed_http.path)
+
+                if route.match_route(parsed_http.path) or parameters is not False:
                     match_route = route
                     break
 
             # make route response
             if match_route:
+                remote_addr = client.get_address()
+                request = RequestData(parsed_http, remote_addr, parameters)
+
                 if route.accept_method(request.method):
                     response = route.get_route_response(request)
                 else:
