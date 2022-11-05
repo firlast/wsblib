@@ -12,6 +12,20 @@ from .exceptions import InvalidRouteResponseError
 
 class Route:
     def __init__(self, callback: FunctionType, path: str, methods: tuple = ('GET',)) -> None:
+        """Creating a new `Route` instance.
+
+        This class is used to manipulate and obtain data
+        from the route requested by the user, being able to check
+        methods, obtain parameters (for dynamic routes) and others.
+
+        :param callback: Function to be called when the route is requested
+        :type callback: FunctionType
+        :param path: Route path
+        :type path: str
+        :param methods: Route allowed methods, defaults to ('GET',)
+        :type methods: tuple, optional
+        """
+
         self._path = path
         self._methods = methods
         self._callback = callback
