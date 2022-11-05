@@ -4,6 +4,7 @@ of a created route, such as path, accepted methods and the callback function.
 """
 
 from types import FunctionType
+from typing import Union
 from http_pyparser import response, parser
 
 from .exceptions import InvalidRouteResponseError
@@ -49,6 +50,27 @@ class Route:
         # register registering dynamic route variables
         self._parameters = parameters
         self._no_parameters = no_parameters
+
+    def _get_route_parameters(self, path_split) -> dict:
+        result = {}
+
+        for d in self._parameters:
+            index = d['index']
+            var_type = d['var_type']
+            name = d['name']
+
+            variable = path_split[index]
+            
+            if var_type == 'str':
+                variable = str(variable)
+            elif var_type == 'int':
+                variable = int(variable)
+            elif var_type == 'float':
+                variable = float(variable)
+
+            result[name] = variable
+
+        return result
 
     def match_route(self, path: str) -> bool:
         """Checks if the path specified by the "path"
