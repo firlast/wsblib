@@ -15,6 +15,12 @@ class Route:
         self._methods = methods
         self._callback = callback
 
+        self._parameters = []
+        self._no_parameters = []
+
+        if '<' in path and '>' in path:
+            self._register_dynamic_route()
+
     def _register_dynamic_route(self) -> None:
         split_path = self._path.split('/')        
         split_path.remove('')
