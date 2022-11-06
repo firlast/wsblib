@@ -85,11 +85,11 @@ class ProcessRequest:
                     match_route = route
                     break
 
+            remote_addr = client.get_address()
+            request = RequestData(parsed_http, remote_addr, parameters)
+
             # make route response
             if match_route:
-                remote_addr = client.get_address()
-                request = RequestData(parsed_http, remote_addr, parameters)
-
                 if route.accept_method(request.method):
                     response = route.get_route_response(request)
                 else:
