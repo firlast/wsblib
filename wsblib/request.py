@@ -4,7 +4,7 @@ from a given route and requested method. Use to process client requests.
 """
 
 import http_pyparser
-from typing import List, Union
+from typing import List, Tuple
 
 from .route import Route
 from .status import status
@@ -47,7 +47,7 @@ class ProcessRequest:
     def __init__(self, routes: List[Route]) -> None:
         self._routes = routes
 
-    def process(self, client: Client) -> Union[http_pyparser.Response, bool]:
+    def process(self, client: Client) -> Tuple[http_pyparser.Response, RequestData]:
         """Process and get or create a response to
         specified path and requested method.
 
@@ -55,10 +55,15 @@ class ProcessRequest:
         class; the `http_pyparser` library parse this
         and return a class with HTTP data.
 
+        If successful, this method will return an instance
+        of `http_pyparser.Response` with the response generated
+        to the client and an instance of `RequestData` with the
+        request data.
+
         :param client: A `Client` instance
         :type client: Client
-        :return: Return request response
-        :rtype: Union[http_pyparser.Response, bool]
+        :return: Return response and request object
+        :rtype: Tuple[http_pyparser.Response, RequestData]
         """
 
         # get client request
@@ -66,7 +71,6 @@ class ProcessRequest:
 
         if not message:
             client.destroy()
-            response = False
         else:
             http_parser = http_pyparser.parser.HTTPParser()
             parsed_http = http_parser.parser(message)
@@ -99,4 +103,4 @@ class ProcessRequest:
                     status=status.not_found_404
                 )
 
-        return response
+            return response
