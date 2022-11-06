@@ -32,9 +32,11 @@ request = ProcessRequest(routes)
 
 
 def process(client: Client):
-    response = request.process(client)
+    process_result = request.process(client)
 
-    if response:
+    if process_result:
+        response, request_data = process_result
+
         http = http_pyparser.response.make_response(response)
         client.send_message(http)
         client.destroy()
