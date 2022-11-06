@@ -4,6 +4,7 @@ from wsblib.route import Route
 from wsblib.server import Client, Server
 from wsblib.request import ProcessRequest
 from wsblib.request import RequestData
+from wsblib import log
 
 import http_pyparser
 
@@ -36,6 +37,7 @@ def process(client: Client):
 
     if process_result:
         response, request_data = process_result
+        log.log_request(response, request_data)
 
         http = http_pyparser.response.make_response(response)
         client.send_message(http)

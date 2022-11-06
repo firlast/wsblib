@@ -3,6 +3,7 @@
 from wsblib.route import Route
 from wsblib.server import Client, Server
 from wsblib.request import ProcessRequest
+from wsblib import log
 
 import http_pyparser
 
@@ -31,6 +32,8 @@ class MyFrame:
 
             if process:
                 response, request_data = process
+                log.log_request(response, request_data)
+
                 http = http_pyparser.response.make_response(response)
                 client.send_message(http)
                 client.destroy()
