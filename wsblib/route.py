@@ -7,7 +7,7 @@ from types import FunctionType
 from typing import Union
 from http_pyparser import response, parser
 
-from .exceptions import InvalidRouteResponseError
+from .exceptions import InvalidResponseError
 
 
 class Route:
@@ -164,7 +164,7 @@ class Route:
             callback_response = self._callback.__call__()
 
         if not callback_response:
-            raise InvalidRouteResponseError(f'Route "{self._path}" returned a invalid response')
+            raise InvalidResponseError(f'Route "{self._path}" returned a invalid response')
         else:
             if isinstance(callback_response, tuple):
                 # getting body and status of response
