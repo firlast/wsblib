@@ -79,13 +79,12 @@ class ProcessRequest:
 
             # checking routes
             for route in self._routes:
-                parameters = route.get_parameters(parsed_http.path)
-
-                if route.match_route(parsed_http.path) or parameters is not False:
+                if route.match_route(parsed_http.path):
                     match_route = route
                     break
 
             remote_addr = client.get_address()
+            parameters = route.get_parameters(parsed_http.path)
             request = RequestData(parsed_http, remote_addr, parameters)
 
             # make route response

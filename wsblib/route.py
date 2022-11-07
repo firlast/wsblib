@@ -128,7 +128,7 @@ class Route:
         :rtype: bool
         """
 
-        return self._path == path
+        return self._path == path or self.get_parameters(path) is not False
 
     def accept_method(self, method: str) -> bool:
         """Checks if the method passed by the
