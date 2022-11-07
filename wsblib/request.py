@@ -9,6 +9,7 @@ from typing import List, Tuple
 from .route import Route
 from .status import status
 from .server import Client
+from .errors import Error
 
 
 class RequestData:
@@ -44,8 +45,9 @@ class RequestData:
 
 
 class ProcessRequest:
-    def __init__(self, routes: List[Route]) -> None:
+    def __init__(self, routes: List[Route], errors_callback: List[Error] = []) -> None:
         self._routes = routes
+        self._errors_callback = errors_callback
 
     def process(self, client: Client) -> Tuple[http_pyparser.Response, RequestData]:
         """Process and get or create a response to
@@ -96,10 +98,20 @@ class ProcessRequest:
                         body='Method Not Allowed',
                         status=status.method_not_allowed_405
                     )
+
+                    for error_handle in self._errors_callback:
+                        if error_handle.match_status_code(405):
+                            response = error_handle.get_callback_response(request)
+                            break
             else:
                 response = http_pyparser.response.Response(
                     body='Not Found',
                     status=status.not_found_404
                 )
+
+                for error_handle in self._errors_callback:
+                    if error_handle.match_status_code(404):
+                        response = error_handle.get_callback_response(request)
+                        break
 
             return response, request
