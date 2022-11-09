@@ -1,7 +1,6 @@
 from types import FunctionType
 
 from .exceptions import InvalidResponseError
-from .request import RequestData
 
 from http_pyparser import response
 
@@ -14,7 +13,7 @@ class Error:
     def match_status_code(self, status_code: int) -> bool:
         return self._status_code == status_code
 
-    def get_callback_response(self, request: RequestData) -> response.Response:
+    def get_callback_response(self, request) -> response.Response:
         """Gets the response from the error handler.
 
         The `request` argument is only passed as
