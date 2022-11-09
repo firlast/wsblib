@@ -1,4 +1,4 @@
-# simple server with threads using WSBLib
+# using error handler
 
 from wsblib.route import Route
 from wsblib.server import Client, Server
