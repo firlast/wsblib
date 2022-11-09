@@ -31,3 +31,14 @@ Adding module to log request data and returning request data in `ProcessRequest.
 - [f69dd0d](https://github.com/firlast/wsblib/commit/f69dd0d): Returning request data in `ProcessRequest.process` method;
 - [3ac316b](https://github.com/firlast/wsblib/commit/3ac316b): Creating `RequestData` instance outside condition;
 - [ba271f7](https://github.com/firlast/wsblib/commit/ba271f7): Adding `log_request` function;
+
+# 0.4.0
+
+Adding HTTP status error handler.
+
+## Major commits
+
+- [202b064](https://github.com/firlast/wsblib/commit/202b064): Checking route parameters in `Route.match_route` method;
+- [c59de99](https://github.com/firlast/wsblib/commit/c59de99): Adding `Error` class to handle http status code errors;
+- [6ee1e28](https://github.com/firlast/wsblib/commit/6ee1e28): Renaming exception to `InvalidResponseError`;
+- [fff0eb7](https://github.com/firlast/wsblib/commit/fff0eb7): Adding errors callback in request process.
