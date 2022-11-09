@@ -3,6 +3,7 @@ from types import FunctionType
 from .exceptions import InvalidResponseError
 
 from http_pyparser import response
+from http_pyparser.parser import HTTPData
 
 
 class Error:
@@ -13,7 +14,7 @@ class Error:
     def match_status_code(self, status_code: int) -> bool:
         return self._status_code == status_code
 
-    def get_callback_response(self, request) -> response.Response:
+    def get_callback_response(self, request: HTTPData) -> response.Response:
         """Gets the response from the error handler.
 
         The `request` argument is only passed as
@@ -25,7 +26,7 @@ class Error:
         :raises InvalidResponseError: If the route returns None,
         or a boolean value.
         :return: Callback response in Response object;
-        :rtype: response.Response
+        :rtype: http_pyparser.parser.HTTPData
         """
 
         try:
