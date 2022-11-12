@@ -42,3 +42,10 @@ Adding HTTP status error handler.
 - [c59de99](https://github.com/firlast/wsblib/commit/c59de99): Adding `Error` class to handle http status code errors;
 - [6ee1e28](https://github.com/firlast/wsblib/commit/6ee1e28): Renaming exception to `InvalidResponseError`;
 - [fff0eb7](https://github.com/firlast/wsblib/commit/fff0eb7): Adding errors callback in request process.
+
+# 0.5.0
+
+Making request data available from the function's global variables.
+
+- [e180e05](https://github.com/firlast/wsblib/commit/e180e05): Making request data available through global variables.
+- [81e1743](https://github.com/firlast/wsblib/commit/81e1743): Passing `use_globals` argument to `get_route_response` method.
