@@ -47,5 +47,12 @@ Adding HTTP status error handler.
 
 Making request data available from the function's global variables.
 
-- [e180e05](https://github.com/firlast/wsblib/commit/e180e05): Making request data available through global variables.
+- [e180e05](https://github.com/firlast/wsblib/commit/e180e05): Making request data available through global variables;
 - [81e1743](https://github.com/firlast/wsblib/commit/81e1743): Passing `use_globals` argument to `get_route_response` method.
+
+# 0.6.0
+
+Adding `Server.destroy` method to close server socket.
+
+- [b0eca90](https://github.com/firlast/wsblib/commit/b0eca90): Adding `destroy` method to Server class;
+- [da812a3](https://github.com/firlast/wsblib/commit/da812a3): Destroying soket in unit test.
