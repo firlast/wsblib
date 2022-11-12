@@ -29,6 +29,7 @@ class TestSocket(bupytest.UnitTest):
         response = self.client.recv(1024)
 
         self.assert_expected(response.decode(), 'tested')
+        self.server.destroy()
 
 
 if __name__ == '__main__':
