@@ -86,6 +86,12 @@ class Server(object):
         self._socket.bind(address)
         self._socket.listen(max_listen)
 
+    def destroy(self) -> None:
+        """Destroy server socket."""
+
+        self._socket.shutdown(socket.SHUT_RDWR)
+        self._socket.close()
+
     def wait_client(self) -> Client:
         """Wait a client connection.
 
