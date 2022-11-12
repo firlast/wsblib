@@ -142,7 +142,11 @@ class Route:
 
         return method in self._methods
 
-    def get_route_response(self, request: parser.HTTPData) -> response.Response:
+    def get_route_response(
+        self,
+        request: parser.HTTPData,
+        use_globals: bool = False
+    ) -> response.Response:
         """Gets the return of the route's callback
         function to use as the route's response.
 
@@ -152,16 +156,22 @@ class Route:
 
         :param request: Request data
         :type request: parser.HTTPData
+        :param use_globals: Use `__globals__` to make request data available
+        :type use_globals: bool, defaults to False
         :raises InvalidRouteResponseError: If the route returns None,
         or a boolean value.
         :return: Route response in Response object;
         :rtype: response.Response
         """
 
-        try:
-            callback_response = self._callback.__call__(request)
-        except TypeError:
+        if use_globals:
+            self._callback.__globals__['request'] = request
             callback_response = self._callback.__call__()
+        else:
+            try:
+                callback_response = self._callback.__call__(request)
+            except TypeError:
+                callback_response = self._callback.__call__()
 
         if not callback_response:
             raise InvalidResponseError(f'Route "{self._path}" returned a invalid response')
