@@ -49,7 +49,11 @@ class ProcessRequest:
         self._routes = routes
         self._errors_callback = errors_callback
 
-    def process(self, client: Client) -> Tuple[http_pyparser.Response, RequestData]:
+    def process(
+        self,
+        client: Client,
+        use_globals: bool = False
+    ) -> Tuple[http_pyparser.Response, RequestData]:
         """Process and get or create a response to
         specified path and requested method.
 
@@ -64,6 +68,8 @@ class ProcessRequest:
 
         :param client: A `Client` instance
         :type client: Client
+        :param use_globals: Use `__globals__` to make request data available
+        :type use_globals: bool, defaults to False
         :return: Return response and request object
         :rtype: Tuple[http_pyparser.Response, RequestData]
         """
@@ -92,7 +98,7 @@ class ProcessRequest:
             # make route response
             if match_route:
                 if route.accept_method(request.method):
-                    response = route.get_route_response(request)
+                    response = route.get_route_response(request, use_globals)
                 else:
                     response = http_pyparser.response.Response(
                         body='Method Not Allowed',
