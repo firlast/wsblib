@@ -60,3 +60,12 @@ Adding `Server.destroy` method to close server socket.
 
 - [b0eca90](https://github.com/firlast/wsblib/commit/b0eca90): Adding `destroy` method to Server class;
 - [da812a3](https://github.com/firlast/wsblib/commit/da812a3): Destroying soket in unit test.
+
+# 0.7.0
+
+Adding `RequestData.json` method to convert a **JSON** body in `dict`.
+
+## Major commits
+
+- [7257af3](https://github.com/firlast/wsblib/commit/7257af3): Adding method to convert JSON body to dict;
+- [c239ab2](https://github.com/firlast/wsblib/commit/c239ab2): Fix change log.
