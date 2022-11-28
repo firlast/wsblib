@@ -3,8 +3,10 @@ Contains a `ProcessRequest` class to process and get a response
 from a given route and requested method. Use to process client requests.
 """
 
+import json
+
 import http_pyparser
-from typing import List, Tuple
+from typing import List, Tuple, Union
 
 from .route import Route
 from .status import status
@@ -36,6 +38,24 @@ class RequestData:
 
         self.remote_addr = remote_addr
         self.parameters = parameters
+
+    def json(self) -> Union[None, dict]:
+        """Return body as JSON.
+
+        If None is returned, it means that the request
+        does not have a body. This method does not handle exceptions,
+        decoding errors will be thrown by the `json` module.
+
+        :return: Body as JSON format or None
+        :rtype: Union[None, dict]
+        """
+
+        if self.body:
+            data = json.loads(self.body)
+        else:
+            data = None
+
+        return data
 
     def __repr__(self) -> str:
         return (f'RequestData(real_path="{self.real_path}", path="{self.path}", method="{self.method}", '
