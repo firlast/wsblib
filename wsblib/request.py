@@ -103,7 +103,7 @@ class ProcessRequest:
         :param use_globals: Use `__globals__` to make request data available
         :type use_globals: bool, defaults to False
         :return: Return response and request object
-        :rtype: Tuple[http_pyparser.Response, RequestData]
+        :rtype: RequestProcessed
         """
 
         # get client request
