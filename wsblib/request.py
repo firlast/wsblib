@@ -18,8 +18,7 @@ class RequestData:
     def __init__(
         self,
         parsed_http: http_pyparser.parser.HTTPData,
-        remote_addr: tuple,
-        parameters: dict
+        remote_addr: tuple
     ):
         self.real_path = parsed_http.real_path
 
@@ -37,7 +36,7 @@ class RequestData:
         self.query = parsed_http.query
 
         self.remote_addr = remote_addr
-        self.parameters = parameters
+        self.parameters = {}
 
     def json(self) -> Union[None, dict]:
         """Return body as JSON.
@@ -116,10 +115,11 @@ class ProcessRequest:
             remote_addr = client.get_address()
 
             route = self._get_route_by_path(parsed_http.path)
-            parameters = route.get_parameters(parsed_http.path)
-            request = RequestData(parsed_http, remote_addr, parameters)
+            request = RequestData(parsed_http, remote_addr)
 
             if route:
+                request.parameters = route.get_parameters(parsed_http.path)
+
                 if route.accept_method(request.method):
                     processed_request = RequestProcessed(route, request)
                 else:
