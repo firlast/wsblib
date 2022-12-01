@@ -128,12 +128,12 @@ class ProcessRequest:
                 else:
                     for error_handle in self._errors_callback:
                         if error_handle.match_status_code(405):
-                            processed_request = RequestProcessed(route, request)
+                            processed_request = RequestProcessed(error_handle, request)
                             break
             else:
                 for error_handle in self._errors_callback:
                     if error_handle.match_status_code(404):
-                        processed_request = RequestProcessed(route, request)
+                        processed_request = RequestProcessed(error_handle, request)
                         break
 
             return processed_request
