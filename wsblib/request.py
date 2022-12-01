@@ -66,13 +66,13 @@ class RequestData:
 
 class RequestProcessed:
     def __init__(self, route: Union[Route, Error], request: RequestData) -> None:
-        self._route = route
-        self._request = request
+        self.route = route
+        self.request = request
 
         if isinstance(route, Route):
-            self._type = 'route'
+            self.type = 'route'
         elif isinstance(route, Error):
-            self._type = 'error'
+            self.type = 'error'
 
 
 class ProcessRequest:
