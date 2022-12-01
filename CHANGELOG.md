@@ -69,3 +69,17 @@ Adding `RequestData.json` method to convert a **JSON** body in `dict`.
 
 - [7257af3](https://github.com/firlast/wsblib/commit/7257af3): Adding method to convert JSON body to dict;
 - [c239ab2](https://github.com/firlast/wsblib/commit/c239ab2): Fix change log.
+
+# 1.0.0
+
+Providing **full control** of the *request and response* cycle to the customer.
+
+## Major commits
+
+- [c388264](https://github.com/firlast/wsblib/commit/c388264): Create `RequestProcessed` class;
+- [5e4d610](https://github.com/firlast/wsblib/commit/5e4d610): Create `RequestProcessed` instance and returning;
+- [51d42a0](https://github.com/firlast/wsblib/commit/51d42a0): Removing `use_globals` parameter from `ProcessRequest.process` method;
+- [3ccc832](https://github.com/firlast/wsblib/commit/3ccc832): Adding method to get route by path;
+- [dc35cd0](https://github.com/firlast/wsblib/commit/dc35cd0): Setting "parameter" attribute only when route is found;
+- [9fa9dec](https://github.com/firlast/wsblib/commit/9fa9dec): Adding default errors list;
+- [64fd9d3](https://github.com/firlast/wsblib/commit/64fd9d3): Extend `errors_callback` list with `default_errors`.

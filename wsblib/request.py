@@ -4,22 +4,20 @@ from a given route and requested method. Use to process client requests.
 """
 
 import json
+from typing import List, Union
 
 import http_pyparser
-from typing import List, Tuple, Union
 
+from .errors import Error, default_errors
 from .route import Route
-from .status import status
 from .server import Client
-from .errors import Error
 
 
 class RequestData:
     def __init__(
         self,
         parsed_http: http_pyparser.parser.HTTPData,
-        remote_addr: tuple,
-        parameters: dict
+        remote_addr: tuple
     ):
         self.real_path = parsed_http.real_path
 
@@ -37,7 +35,7 @@ class RequestData:
         self.query = parsed_http.query
 
         self.remote_addr = remote_addr
-        self.parameters = parameters
+        self.parameters = {}
 
     def json(self) -> Union[None, dict]:
         """Return body as JSON.
@@ -64,34 +62,41 @@ class RequestData:
                 f'query={self.query}, remote_addr={self.remote_addr}, parameters={self.parameters})')
 
 
+class RequestProcessed:
+    def __init__(self, route: Union[Route, Error], request: RequestData, use_globals: bool = False) -> None:
+        self.route = route
+        self.request = request
+        self.use_globals = use_globals
+
+        if isinstance(route, Route):
+            self.type = 'route'
+        elif isinstance(route, Error):
+            self.type = 'error'
+
+
 class ProcessRequest:
     def __init__(self, routes: List[Route], errors_callback: List[Error] = []) -> None:
         self._routes = routes
         self._errors_callback = errors_callback
+        self._errors_callback.extend(default_errors)
 
-    def process(
-        self,
-        client: Client,
-        use_globals: bool = False
-    ) -> Tuple[http_pyparser.Response, RequestData]:
-        """Process and get or create a response to
-        specified path and requested method.
+    def _get_route_by_path(self, path: str) -> Union[Route, None]:
+        for route in self._routes:
+            if route.match_route(path):
+                return route
 
-        The HTTP message is obtained by `Client`
-        class; the `http_pyparser` library parse this
-        and return a class with HTTP data.
+    def process(self, client: Client) -> RequestProcessed:
+        """Processes raw HTTP data and creates a `ProcessedRequest`
+        object. This object has route information with a `Route`
+        object and the request that was made by the client, with
+        the `RequestData` object.
 
-        If successful, this method will return an instance
-        of `http_pyparser.Response` with the response generated
-        to the client and an instance of `RequestData` with the
-        request data.
+        All manipulation of these data are done as you wish.
 
         :param client: A `Client` instance
         :type client: Client
-        :param use_globals: Use `__globals__` to make request data available
-        :type use_globals: bool, defaults to False
-        :return: Return response and request object
-        :rtype: Tuple[http_pyparser.Response, RequestData]
+        :return: Return a RequestProcessed object
+        :rtype: RequestProcessed
         """
 
         # get client request
@@ -102,42 +107,25 @@ class ProcessRequest:
         else:
             http_parser = http_pyparser.parser.HTTPParser()
             parsed_http = http_parser.parser(message)
-
-            match_route: Route = None
-
-            # checking routes
-            for route in self._routes:
-                if route.match_route(parsed_http.path):
-                    match_route = route
-                    break
-
             remote_addr = client.get_address()
-            parameters = route.get_parameters(parsed_http.path)
-            request = RequestData(parsed_http, remote_addr, parameters)
 
-            # make route response
-            if match_route:
+            route = self._get_route_by_path(parsed_http.path)
+            request = RequestData(parsed_http, remote_addr)
+
+            if route:
+                request.parameters = route.get_parameters(parsed_http.path)
+
                 if route.accept_method(request.method):
-                    response = route.get_route_response(request, use_globals)
+                    processed_request = RequestProcessed(route, request)
                 else:
-                    response = http_pyparser.response.Response(
-                        body='Method Not Allowed',
-                        status=status.method_not_allowed_405
-                    )
-
                     for error_handle in self._errors_callback:
                         if error_handle.match_status_code(405):
-                            response = error_handle.get_callback_response(request)
+                            processed_request = RequestProcessed(error_handle, request)
                             break
             else:
-                response = http_pyparser.response.Response(
-                    body='Not Found',
-                    status=status.not_found_404
-                )
-
                 for error_handle in self._errors_callback:
                     if error_handle.match_status_code(404):
-                        response = error_handle.get_callback_response(request)
+                        processed_request = RequestProcessed(error_handle, request)
                         break
 
-            return response, request
+            return processed_request

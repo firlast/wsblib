@@ -18,7 +18,7 @@ setup(
     keywords=['www', 'http', 'server', 'internet', 'socket'],
     classifiers=[
         'License :: OSI Approved :: BSD License',
-        'Development Status :: 3 - Alpha',
+        'Development Status :: 5 - Production/Stable',
         'Intended Audience :: Developers',
         'Natural Language :: English',
         'Operating System :: OS Independent',
