@@ -64,6 +64,12 @@ class RequestData:
                 f'query={self.query}, remote_addr={self.remote_addr}, parameters={self.parameters})')
 
 
+class RequestProcessed:
+    def __init__(self, route: Route, request: RequestData) -> None:
+        self._route = route
+        self._request = request
+
+
 class ProcessRequest:
     def __init__(self, routes: List[Route], errors_callback: List[Error] = []) -> None:
         self._routes = routes
