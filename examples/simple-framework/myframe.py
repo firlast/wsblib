@@ -27,14 +27,21 @@ class MyFrame:
     def run(self, host: str = '127.0.0.1', port: int = 5500) -> None:
         request = ProcessRequest(self._routes)
 
-        def process(client: Client):
-            process = request.process(client)
+        def process(client: Client, use_globals: bool):
+            processed_request = request.process(client)
 
-            if process:
-                response, request_data = process
-                log.log_request(response, request_data)
+            if processed_request:
+                request_data = processed_request.request
+                process_type = processed_request.type
+
+                if process_type == 'route':
+                    response = processed_request.route.get_route_response(request_data, use_globals)
+                else:
+                    response = processed_request.route.get_callback_response(request_data)
 
                 http = http_pyparser.response.make_response(response)
+
+                log.log_request(response, request_data)
                 client.send_message(http)
                 client.destroy()
 
@@ -46,5 +53,5 @@ class MyFrame:
 
         while True:
             client = server.wait_client()
-            th = threading.Thread(target=process, args=(client,))
+            th = threading.Thread(target=process, args=(client, False))
             th.start()
