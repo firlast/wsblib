@@ -4,13 +4,13 @@ from a given route and requested method. Use to process client requests.
 """
 
 import json
-
-import http_pyparser
 from typing import List, Union
 
+import http_pyparser
+
+from .errors import Error, default_errors
 from .route import Route
 from .server import Client
-from .errors import Error
 
 
 class RequestData:
@@ -78,6 +78,7 @@ class ProcessRequest:
     def __init__(self, routes: List[Route], errors_callback: List[Error] = []) -> None:
         self._routes = routes
         self._errors_callback = errors_callback
+        self._errors_callback.extend(default_errors)
 
     def _get_route_by_path(self, path: str) -> Union[Route, None]:
         for route in self._routes:
