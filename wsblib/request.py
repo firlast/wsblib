@@ -6,10 +6,9 @@ from a given route and requested method. Use to process client requests.
 import json
 
 import http_pyparser
-from typing import List, Tuple, Union
+from typing import List, Union
 
 from .route import Route
-from .status import status
 from .server import Client
 from .errors import Error
 
