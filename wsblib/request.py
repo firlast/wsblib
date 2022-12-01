@@ -81,11 +81,7 @@ class ProcessRequest:
         self._routes = routes
         self._errors_callback = errors_callback
 
-    def process(
-        self,
-        client: Client,
-        use_globals: bool = False
-    ) -> RequestProcessed:
+    def process(self, client: Client) -> RequestProcessed:
         """Process and get or create a response to
         specified path and requested method.
 
@@ -100,8 +96,6 @@ class ProcessRequest:
 
         :param client: A `Client` instance
         :type client: Client
-        :param use_globals: Use `__globals__` to make request data available
-        :type use_globals: bool, defaults to False
         :return: Return response and request object
         :rtype: RequestProcessed
         """
