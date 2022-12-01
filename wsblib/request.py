@@ -124,16 +124,16 @@ class ProcessRequest:
             # make route response
             if match_route:
                 if route.accept_method(request.method):
-                    processed_request = RequestProcessed(route, request, use_globals)
+                    processed_request = RequestProcessed(route, request)
                 else:
                     for error_handle in self._errors_callback:
                         if error_handle.match_status_code(405):
-                            processed_request = RequestProcessed(route, request, use_globals)
+                            processed_request = RequestProcessed(route, request)
                             break
             else:
                 for error_handle in self._errors_callback:
                     if error_handle.match_status_code(404):
-                        processed_request = RequestProcessed(route, request, use_globals)
+                        processed_request = RequestProcessed(route, request)
                         break
 
             return processed_request
