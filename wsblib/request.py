@@ -86,21 +86,16 @@ class ProcessRequest:
                 return route
 
     def process(self, client: Client) -> RequestProcessed:
-        """Process and get or create a response to
-        specified path and requested method.
+        """Processes raw HTTP data and creates a `ProcessedRequest`
+        object. This object has route information with a `Route`
+        object and the request that was made by the client, with
+        the `RequestData` object.
 
-        The HTTP message is obtained by `Client`
-        class; the `http_pyparser` library parse this
-        and return a class with HTTP data.
-
-        If successful, this method will return an instance
-        of `http_pyparser.Response` with the response generated
-        to the client and an instance of `RequestData` with the
-        request data.
+        All manipulation of these data are done as you wish.
 
         :param client: A `Client` instance
         :type client: Client
-        :return: Return response and request object
+        :return: Return a RequestProcessed object
         :rtype: RequestProcessed
         """
 
