@@ -81,6 +81,11 @@ class ProcessRequest:
         self._routes = routes
         self._errors_callback = errors_callback
 
+    def _get_route_by_path(self, path: str) -> Union[Route, None]:
+        for route in self._routes:
+            if route.match_route(path):
+                return route
+
     def process(self, client: Client) -> RequestProcessed:
         """Process and get or create a response to
         specified path and requested method.
@@ -108,21 +113,13 @@ class ProcessRequest:
         else:
             http_parser = http_pyparser.parser.HTTPParser()
             parsed_http = http_parser.parser(message)
-
-            match_route: Route = None
-
-            # checking routes
-            for route in self._routes:
-                if route.match_route(parsed_http.path):
-                    match_route = route
-                    break
-
             remote_addr = client.get_address()
+
+            route = self._get_route_by_path(parsed_http.path)
             parameters = route.get_parameters(parsed_http.path)
             request = RequestData(parsed_http, remote_addr, parameters)
 
-            # make route response
-            if match_route:
+            if route:
                 if route.accept_method(request.method):
                     processed_request = RequestProcessed(route, request)
                 else:
