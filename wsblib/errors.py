@@ -49,3 +49,17 @@ class Error:
                 final_response = response.Response(callback_response)
 
             return final_response
+
+
+def not_found_error_404():
+    return '<h1>404: Not Found</h1>', 404
+
+
+def method_not_allowed_405():
+    return '<h1><b>405</b>: Method Not Allowed</h1>', 405
+
+
+default_errors = [
+    Error(not_found_error_404, 404),
+    Error(method_not_allowed_405, 405)
+]
