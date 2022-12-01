@@ -65,9 +65,10 @@ class RequestData:
 
 
 class RequestProcessed:
-    def __init__(self, route: Union[Route, Error], request: RequestData) -> None:
+    def __init__(self, route: Union[Route, Error], request: RequestData, use_globals: bool = False) -> None:
         self.route = route
         self.request = request
+        self.use_globals = use_globals
 
         if isinstance(route, Route):
             self.type = 'route'
@@ -84,7 +85,7 @@ class ProcessRequest:
         self,
         client: Client,
         use_globals: bool = False
-    ) -> Tuple[http_pyparser.Response, RequestData]:
+    ) -> RequestProcessed:
         """Process and get or create a response to
         specified path and requested method.
 
@@ -129,26 +130,16 @@ class ProcessRequest:
             # make route response
             if match_route:
                 if route.accept_method(request.method):
-                    response = route.get_route_response(request, use_globals)
+                    processed_request = RequestProcessed(route, request, use_globals)
                 else:
-                    response = http_pyparser.response.Response(
-                        body='Method Not Allowed',
-                        status=status.method_not_allowed_405
-                    )
-
                     for error_handle in self._errors_callback:
                         if error_handle.match_status_code(405):
-                            response = error_handle.get_callback_response(request)
+                            processed_request = RequestProcessed(route, request, use_globals)
                             break
             else:
-                response = http_pyparser.response.Response(
-                    body='Not Found',
-                    status=status.not_found_404
-                )
-
                 for error_handle in self._errors_callback:
                     if error_handle.match_status_code(404):
-                        response = error_handle.get_callback_response(request)
+                        processed_request = RequestProcessed(route, request, use_globals)
                         break
 
-            return response, request
+            return processed_request
