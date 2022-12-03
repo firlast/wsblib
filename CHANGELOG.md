@@ -92,3 +92,11 @@ Making it easier to get the response from the route or callback function.
 
 - [9728988](https://github.com/firlast/wsblib/commit/9728988): Adding method to get response from callback or route; 
 - [cc85253](https://github.com/firlast/wsblib/commit/cc85253): Receiving `use_globals` argument in `get_response` method.
+
+# 1.1.1
+
+Print query string in log request.
+
+## Major commits
+
+- [828973d](https://github.com/firlast/wsblib/commit/828973d): Include query string in request path.
