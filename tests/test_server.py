@@ -51,12 +51,22 @@ class TestServer(bupytest.UnitTest):
 
         mock_socket = SocketMock(project_route_http)
         client = server.Client(mock_socket, ('127.0.0.1', 5500))
+
         request_processed = process.process(client)
+
+        # check request data
+        self.assert_expected(request_processed.request.cookies, {'projectId': '28'})
+        self.assert_expected(request_processed.request.path, '/project')
+        self.assert_expected(request_processed.request.query, {'id': '28'})
 
         # changing query data from request data
         request_processed.request.query = {'id': '30'}
+        self.assert_expected(request_processed.request.query, {'id': '30'})
+
+        # get route response
         response = request_processed.get_response()
 
+        # check response data
         self.assert_expected(response.body, {'name': 'WSBLib', 'id': 30})
         self.assert_expected(response.content_type, 'text/html')
         self.assert_expected(response.status, 201)
