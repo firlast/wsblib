@@ -17,11 +17,12 @@ class TestServer(bupytest.UnitTest):
         def callback():
             return 'Hello World!'
 
-        def callback_2():
-            return {'name': 'WSBLib', 'id': 28}, 201
+        def callback_2(request):
+            id = request.query.get('id')
+            return {'name': 'WSBLib', 'id': int(id)}, 201
 
         self.index_route = route.Route(callback, '/', methods=('GET', 'POST'))
-        self.about_route = route.Route(callback_2, '/wsblib')
+        self.project_route = route.Route(callback_2, '/project')
 
     def test_route(self):
         self.assert_true(self.index_route.match_route('/'))
@@ -30,28 +31,13 @@ class TestServer(bupytest.UnitTest):
         self.assert_true(self.index_route.accept_method('GET'))
         self.assert_false(self.index_route.accept_method('PUT'))
 
-        self.assert_true(self.about_route.match_route('/wsblib'))
-        self.assert_false(self.about_route.match_route('/json'))
-        self.assert_true(self.about_route.accept_method('GET'))
-        self.assert_false(self.about_route.accept_method('POST'))
-
         fake_http_data = HTTPData()
-
-        # get /index route response
         index_response = self.index_route.get_route_response(fake_http_data)
 
         self.assert_true(isinstance(index_response, Response))
         self.assert_expected(index_response.body, 'Hello World!')
         self.assert_expected(index_response.content_type, 'text/html')
         self.assert_expected(index_response.status, 200)
-
-        # get /about route response
-        about_response = self.about_route.get_route_response(fake_http_data)
-
-        self.assert_true(isinstance(about_response, Response))
-        self.assert_expected(about_response.body, {'name': 'WSBLib', 'id': 28})
-        self.assert_expected(about_response.content_type, 'text/html')
-        self.assert_expected(about_response.status, 201)
 
 
 if __name__ == '__main__':
