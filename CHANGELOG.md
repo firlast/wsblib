@@ -83,3 +83,12 @@ Providing **full control** of the *request and response* cycle to the customer.
 - [dc35cd0](https://github.com/firlast/wsblib/commit/dc35cd0): Setting "parameter" attribute only when route is found;
 - [9fa9dec](https://github.com/firlast/wsblib/commit/9fa9dec): Adding default errors list;
 - [64fd9d3](https://github.com/firlast/wsblib/commit/64fd9d3): Extend `errors_callback` list with `default_errors`.
+
+# 1.1.0
+
+Making it easier to get the response from the route or callback function.
+
+## Major commits
+
+- [9728988](https://github.com/firlast/wsblib/commit/9728988): Adding method to get response from callback or route; 
+- [cc85253](https://github.com/firlast/wsblib/commit/cc85253): Receiving `use_globals` argument in `get_response` method.
