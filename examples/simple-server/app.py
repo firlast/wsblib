@@ -32,18 +32,12 @@ routes = (index_route, about_route, echo_route)
 request = ProcessRequest(routes)
 
 
-def process(client: Client, use_globals: bool):
-    # passing "True" to use_globals
+def process(client: Client):
     processed_request = request.process(client)
 
     if processed_request:
         request_data = processed_request.request
-        process_type = processed_request.type
-
-        if process_type == 'route':
-            response = processed_request.route.get_route_response(request_data, use_globals)
-        else:
-            response = processed_request.route.get_callback_response(request_data)
+        response = processed_request.get_response()
 
         http = http_pyparser.response.make_response(response)
 
@@ -58,4 +52,4 @@ print('Server running in http://127.0.0.1:2808')
 
 while True:
     client = server.wait_client()
-    threading.Thread(target=process, args=(client, False)).start()
+    threading.Thread(target=process, args=(client,)).start()
