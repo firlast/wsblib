@@ -9,7 +9,7 @@ sys.path.insert(0, './')
 from wsblib import route
 
 
-class TestRoute(bupytest.UnitTest):
+class TestServer(bupytest.UnitTest):
     def __init__(self):
         super().__init__()
 
