@@ -13,31 +13,31 @@ class TestServer(bupytest.UnitTest):
     def __init__(self):
         super().__init__()
 
-    def test_route(self):
         def callback():
             return 'Hello World!'
 
         def callback_2():
             return {'status': 'created', 'id': 28}, 201
 
-        index_route = route.Route(callback, '/', methods=('GET', 'POST'))
-        about_route = route.Route(callback_2, '/about')
+        self.index_route = route.Route(callback, '/', methods=('GET', 'POST'))
+        self.about_route = route.Route(callback_2, '/about')
 
-        self.assert_true(index_route.match_route('/'))
-        self.assert_false(index_route.match_route('/index'))
-        self.assert_true(index_route.accept_method('POST'))
-        self.assert_true(index_route.accept_method('GET'))
-        self.assert_false(index_route.accept_method('PUT'))
+    def test_route(self):
+        self.assert_true(self.index_route.match_route('/'))
+        self.assert_false(self.index_route.match_route('/index'))
+        self.assert_true(self.index_route.accept_method('POST'))
+        self.assert_true(self.index_route.accept_method('GET'))
+        self.assert_false(self.index_route.accept_method('PUT'))
 
-        self.assert_true(about_route.match_route('/about'))
-        self.assert_false(about_route.match_route('/sobre'))
-        self.assert_true(about_route.accept_method('GET'))
-        self.assert_false(about_route.accept_method('POST'))
+        self.assert_true(self.about_route.match_route('/about'))
+        self.assert_false(self.about_route.match_route('/sobre'))
+        self.assert_true(self.about_route.accept_method('GET'))
+        self.assert_false(self.about_route.accept_method('POST'))
 
         fake_http_data = HTTPData()
 
         # get /index route response
-        index_response = index_route.get_route_response(fake_http_data)
+        index_response = self.index_route.get_route_response(fake_http_data)
 
         self.assert_true(isinstance(index_response, Response))
         self.assert_expected(index_response.body, 'Hello World!')
@@ -45,7 +45,7 @@ class TestServer(bupytest.UnitTest):
         self.assert_expected(index_response.status, 200)
 
         # get /about route response
-        about_response = about_route.get_route_response(fake_http_data)
+        about_response = self.about_route.get_route_response(fake_http_data)
 
         self.assert_true(isinstance(about_response, Response))
         self.assert_expected(about_response.body, {'status': 'created', 'id': 28})
