@@ -73,6 +73,14 @@ class RequestProcessed:
         elif isinstance(route, Error):
             self.type = 'error'
 
+    def get_response(self) -> http_pyparser.Response:
+        if self.type == 'route':
+            response = self.route.get_route_response(self.request, self.use_globals)
+        elif self.type == 'error':
+            response = self.route.get_callback_response(self.request)
+
+        return response
+
 
 class ProcessRequest:
     def __init__(self, routes: List[Route], errors_callback: List[Error] = []) -> None:
