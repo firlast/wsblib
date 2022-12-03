@@ -33,9 +33,9 @@ jobs:
 
     - name: Run tests on every platform
       run: |
-        python tests/test_server.py
+        bupytest test  tests/test_server.py
 
     - name: Run tests only on Linux
       if:  ${{ failure() && matrix.runner == 'ubuntu-latest' }}
       run: |
-        python tests/test_socket.py
+        bupytest test tests/test_socket.py
