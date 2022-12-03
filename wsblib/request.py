@@ -63,15 +63,22 @@ class RequestData:
 
 
 class RequestProcessed:
-    def __init__(self, route: Union[Route, Error], request: RequestData, use_globals: bool = False) -> None:
+    def __init__(self, route: Union[Route, Error], request: RequestData) -> None:
         self.route = route
         self.request = request
-        self.use_globals = use_globals
 
         if isinstance(route, Route):
             self.type = 'route'
         elif isinstance(route, Error):
             self.type = 'error'
+
+    def get_response(self, use_globals: bool = False) -> http_pyparser.Response:
+        if self.type == 'route':
+            response = self.route.get_route_response(self.request, use_globals=use_globals)
+        elif self.type == 'error':
+            response = self.route.get_callback_response(self.request)
+
+        return response
 
 
 class ProcessRequest:
