@@ -7,8 +7,8 @@ from .request import RequestData
 def log_request(response: Response, request: RequestData) -> None:
     time = datetime.now()
 
+    path = request.real_path
     status = response.status
-    path = request.path
     method = request.method
     host = request.remote_addr[0]
 
