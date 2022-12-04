@@ -108,3 +108,11 @@ Update project requirements.
 ## Major commits
 
 - [50b4b9e](https://github.com/firlast/wsblib/commit/50b4b9e): Update project requires.
+
+# 1.1.3
+
+Update project requirements.
+
+## Major commits
+
+- [eec066b](https://github.com/firlast/wsblib/commit/eec066b): Update project requirements.
