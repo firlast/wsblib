@@ -100,3 +100,11 @@ Print query string in log request.
 ## Major commits
 
 - [828973d](https://github.com/firlast/wsblib/commit/828973d): Include query string in request path.
+
+# 1.1.2
+
+Update project requirements.
+
+## Major commits
+
+- [50b4b9e](https://github.com/firlast/wsblib/commit/50b4b9e): Update project requires.
