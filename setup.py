@@ -13,7 +13,7 @@ setup(
     long_description_content_type='text/markdown',
     long_description=readme,
     packages=['wsblib'],
-    install_requires=['http_pyparser==0.4.1'],
+    install_requires=['http-pyparser==0.5.0'],
     url='https://github.com/firlast/wsblib',
     keywords=['www', 'http', 'server', 'internet', 'socket'],
     classifiers=[
