@@ -39,12 +39,8 @@ def process(client: Client):
     if processed_request:
         request_data = processed_request.request
         response = processed_request.get_response(use_globals=True)
-
-        http = http_pyparser.response.make_response(response)
-
+        processed_request.send_response(response)
         log.log_request(response, request_data)
-        client.send_message(http)
-        client.destroy()
 
 
 server = Server()

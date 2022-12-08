@@ -1,9 +1,10 @@
 class SocketMock:
     def __init__(self, message: str):
         self._message = message.encode()
+        self.sent_msg = None
 
-    def send(self, data) -> None:
-        pass
+    def send(self, data: bytes) -> None:
+        self.sent_msg = data.decode()
 
     def settimeout(self, data) -> None:
         pass

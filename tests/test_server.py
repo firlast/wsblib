@@ -70,7 +70,16 @@ class TestServer(bupytest.UnitTest):
         self.assert_expected(response.body, {'name': 'WSBLib', 'id': 30})
         self.assert_expected(response.content_type, 'text/html')
         self.assert_expected(response.status, 201)
+        
+        # send response
+        request_processed.send_response(response)
 
+        response_http = mock_socket.sent_msg
+        expected_response_http = ('HTTP/1.1 201\r\n'
+                                  'Content-Type: application/json\r\n\r\n'
+                                  '{"name": "WSBLib", "id": 30}')
+
+        self.assert_expected(response_http, expected_response_http)
 
 if __name__ == '__main__':
     bupytest.this()
