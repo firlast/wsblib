@@ -63,7 +63,8 @@ class RequestData:
 
 
 class RequestProcessed:
-    def __init__(self, route: Union[Route, Error], request: RequestData) -> None:
+    def __init__(self, client: Client, route: Union[Route, Error], request: RequestData) -> None:
+        self._client = client
         self.route = route
         self.request = request
 
@@ -79,6 +80,11 @@ class RequestProcessed:
             response = self.route.get_callback_response(self.request)
 
         return response
+
+    def send_response(self, response: http_pyparser.Response) -> None:
+        http_msg = http_pyparser.make_response(response)
+        self._client.send_message(http_msg)
+        self._client.destroy()
 
 
 class ProcessRequest:
@@ -123,16 +129,16 @@ class ProcessRequest:
                 request.parameters = route.get_parameters(parsed_http.path)
 
                 if route.accept_method(request.method):
-                    processed_request = RequestProcessed(route, request)
+                    processed_request = RequestProcessed(client, route, request)
                 else:
                     for error_handle in self._errors_callback:
                         if error_handle.match_status_code(405):
-                            processed_request = RequestProcessed(error_handle, request)
+                            processed_request = RequestProcessed(client, error_handle, request)
                             break
             else:
                 for error_handle in self._errors_callback:
                     if error_handle.match_status_code(404):
-                        processed_request = RequestProcessed(error_handle, request)
+                        processed_request = RequestProcessed(client, error_handle, request)
                         break
 
             return processed_request
