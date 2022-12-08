@@ -116,3 +116,11 @@ Update project requirements.
 ## Major commits
 
 - [eec066b](https://github.com/firlast/wsblib/commit/eec066b): Update project requirements.
+
+# 1.2.0
+
+Creating a method to send a response to the client.
+
+## Major commits
+
+- [3c8f2a6](https://github.com/firlast/wsblib/commit/3c8f2a6): Adding `send_response` in `RequestProcessed` class.
