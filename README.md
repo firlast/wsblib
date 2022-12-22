@@ -18,6 +18,7 @@ pip install wsblib
 Or install manually, cloning the repository and running the command below:
 
 ```
+git clone git@github.com:firlast/wsblib.git
 python3 setup.py install
 ```
 
