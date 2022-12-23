@@ -7,6 +7,10 @@ Web Server Base Library (WSBLib), a library that serves as a basis for creating 
 
 To create server frameworks, you need to use this library and the [HTTPPyParser](https://github.com/jaedsonpys/http-pyparser) library to get data from the request, as it is your framework that will manage the entire request cycle, the `WSBLib` library just makes it easier for you.
 
+- [Usage Examples](https://github.com/firlast/wsblib/tree/master/examples)
+- [Official Documentation](https://firlast.github.io/wsblib)
+- [PyPI Project](https://pypi.org/project/wsblib)
+
 ## Installation
 
 You can use the PIP package manager to install `WSBLib`...
@@ -22,10 +26,6 @@ git clone git@github.com:firlast/wsblib.git
 cd wsblib/
 python3 setup.py install
 ```
-
-## Examples
-
-You can see [WSBLib Usage Examples](https://github.com/firlast/wsblib/tree/master/examples) to get an idea of how this library works or get inspired to create your own project using `WSBLib`.
 
 ## License
 
