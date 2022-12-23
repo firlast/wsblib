@@ -17,3 +17,13 @@ Only versions equal to or greater than 1.0 have documentation because they are a
 - [PyPI Package](https://pypi.org/project/wsblib/1.0.0)
 - [Source code](https://github.com/firlast/wsblib/releases/tag/v1.0.0)
 - [Change log](https://github.com/firlast/wsblib/blob/master/CHANGELOG.md#100)
+
+## License
+
+```text
+BSD 3-Clause
+Copyright (c) 2022, Jaedson Silva
+All rights reserved.
+```
+
+This project use the `BSD 3-Clause` license. Please [see LICENSE file](https://github.com/firlast/wsblib/blob/master/LICENSE) to **more information** about license.
