@@ -2,6 +2,7 @@
 
 Web Server Base Library (WSBLib), a library that serves as a basis for creating other web server frameworks in Python. The goal is to be simple, fast and secure. Here you will learn how to use this library to create your web server or your **own web framework**. Let's start!
 
+- [Code Examples](https://github.com/firlast/wsblib/tree/master/examples)
 - [GitHub Repository](https://github.com/firlast/wsblib)
 - [PyPI Project](https://pypi.org/project/wsblib)
 
