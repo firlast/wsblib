@@ -7,3 +7,10 @@ Web Server Base Library (WSBLib), a library that serves as a basis for creating 
 ## Documentation of WSBLib versions
 
 Only versions equal to or greater than 1.0 have documentation because they are a stable version without many changes.
+
+### 1.0.0 (Dec 01, 2022)
+
+- [Documentation](https://firlast.github.io/wsblib/1.0.0)
+- [PyPI Package](https://pypi.org/project/wsblib/1.0.0)
+- [Source code](https://github.com/firlast/wsblib/releases/tag/v1.0.0)
+- [Change log](https://github.com/firlast/wsblib/blob/master/CHANGELOG.md#100)
