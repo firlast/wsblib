@@ -10,7 +10,7 @@ Web Server Base Library (WSBLib), a library that serves as a basis for creating 
 
 ## Documentation of WSBLib versions
 
-Only versions equal to or greater than 1.0 have documentation because they are a stable version without many changes.
+Only versions equal to or greater than 1.0 have documentation because they are a **stable version** without many changes.
 
 ### 1.1.0 (Dec 02, 2022)
 
