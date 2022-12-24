@@ -13,7 +13,7 @@ To create server frameworks, you need to use this library and the [HTTPPyParser]
 
 ## Installation
 
-You can use the PIP package manager to install `WSBLib`...
+You can use the PIP package manager to install `WSBLib`:
 
 ```
 pip install wsblib
