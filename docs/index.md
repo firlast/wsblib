@@ -6,7 +6,7 @@ Web Server Base Library (WSBLib), a library that serves as a basis for creating 
 - [GitHub Repository](https://github.com/firlast/wsblib)
 - [PyPI Project](https://pypi.org/project/wsblib)
 
-> What I cannot create, I do not understand. — Richard Feynman
+> What I cannot create, i do not understand. — Richard Feynman
 
 ## Documentation of WSBLib versions
 
